@@ -13,6 +13,7 @@ class RequestBodySchema(Schema):
     extension = fields.String(required=True)
     image_base64 = fields.String(required=True)
 
+
 gen = Blueprint("generate", __name__)
 
 @gen.route("/generate", methods=["POST"])
@@ -21,7 +22,6 @@ def generate():
 
     if content_type != "application/json":
         abort(415)
-
     
     try:     
         request_body_schema = RequestBodySchema()
@@ -29,7 +29,6 @@ def generate():
     except ValidationError:
         abort(400, description="Invalid Request Body")
     
-
     image_base64_str = request.json["image_base64"]
     image_extension = request.json["extension"]
     image_name = request.json["image_name"]
