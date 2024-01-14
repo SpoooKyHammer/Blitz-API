@@ -1,0 +1,6 @@
+- b64 decode and save image on local machine --done
+- figure out the format to store the object file in database --done
+- pass the locally saved image for digitization processing and save the resulting
+object file in database (mongodb)
+- delete the locally saved image along with its resultant object file 
+

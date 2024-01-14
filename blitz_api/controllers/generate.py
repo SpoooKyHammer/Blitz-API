@@ -3,10 +3,12 @@ from marshmallow import Schema, fields, ValidationError
 import base64
 import io
 from PIL import Image
+from blitz_api.db import DataBase
+
 
 class RequestBodySchema(Schema):
     """
-    Request Body defination for `/generate` endpoint.
+    Request Body declaration for `/generate` endpoint.
     """
     
     image_name = fields.String(required=True)
@@ -32,7 +34,11 @@ def generate():
     image_base64_str = request.json["image_base64"]
     image_extension = request.json["extension"]
     image_name = request.json["image_name"]
-    img = Image.open(io.BytesIO(base64.decodebytes(bytes(image_base64_str, "utf-8"))))
-    img.save(f"{image_name}.{image_extension}")
+    image = Image.open(io.BytesIO(base64.decodebytes(bytes(image_base64_str, "utf-8"))))
+    image.save(f"{image_name}.{image_extension}")
+    
+    image = open(f"{image_name}.{image_extension}", "rb")
+    DataBase.get_gridFs().put(image, filename=f"{image_name}.{image_extension}")
+    image.close()
 
     return "Success"
