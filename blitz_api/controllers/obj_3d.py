@@ -6,6 +6,7 @@ import io
 from PIL import Image
 from blitz_api.db import DataBase
 from bson.objectid import ObjectId
+import pathlib
 
 bp_3d_obj = Blueprint("3d_obj", __name__, url_prefix="/3d_obj")
 
@@ -36,11 +37,14 @@ def create_3d_obj():
     image_extension = request.json["extension"]
     image_name = request.json["image_name"]
     image = Image.open(io.BytesIO(base64.decodebytes(bytes(image_base64_str, "utf-8"))))
-    image.save(f"{image_name}.{image_extension}")
+    dumps_path = pathlib.Path().cwd().joinpath("dumps")
+    image.save(f"{dumps_path}/{image_name}.{image_extension}")
     
-    image = open(f"{image_name}.{image_extension}", "rb")
-    _id = DataBase.get_gridFs().put(image, filename=f"{image_name}.{image_extension}")
+    image = open(f"{dumps_path}/{image_name}.{image_extension}", "rb")
+    _id = DataBase.get_gridFs().put(image, filename=f"{image_name}.{image_extension}") 
     image.close()
+
+    dumps_path.joinpath(f"{image_name}.{image_extension}").unlink(True)
 
     return { "msg": "successfully saved file", "_id": str(_id) }
 
@@ -52,3 +56,12 @@ def delete_3d_obj(_id):
         return { "msg": "successfully deleted file", "_id": _id }
     else:
         return "", 204
+
+@bp_3d_obj.route("/deleteAll", methods=["DELETE"])
+def delete_all_files():
+    cursor = DataBase.get_gridFs().find({})
+    
+    for grid_out in cursor:
+        DataBase.get_gridFs().delete(grid_out._id)
+    
+    return { "msg": "successfully deleted all files" }
