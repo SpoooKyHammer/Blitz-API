@@ -1,14 +1,18 @@
 
-from flask import Blueprint, request, abort
-from marshmallow import Schema, fields, ValidationError
 import base64
 import io
-from PIL import Image
-from blitz_api.db import DataBase
-from bson.objectid import ObjectId
 import pathlib
+from PIL import Image
+
+from flask import Blueprint, request, abort
+from marshmallow import Schema, fields, ValidationError
+from bson.objectid import ObjectId
+
+from blitz_api.db import DataBase
+
 
 bp_3d_obj = Blueprint("3d_obj", __name__, url_prefix="/3d_obj")
+
 
 class RequestBodySchema(Schema):
     """
@@ -28,14 +32,14 @@ def create_3d_obj():
         abort(415)
      
     try:     
-        request_body_schema = RequestBodySchema()
-        request_body_schema.load(request.json)
+        RequestBodySchema().load(request.json)
     except ValidationError:
         abort(400, description="Invalid Request Body")
     
     image_base64_str = request.json["image_base64"]
     image_extension = request.json["extension"]
     image_name = request.json["image_name"]
+
     image = Image.open(io.BytesIO(base64.decodebytes(bytes(image_base64_str, "utf-8"))))
     dumps_path = pathlib.Path().cwd().joinpath("dumps")
     image.save(f"{dumps_path}/{image_name}.{image_extension}")

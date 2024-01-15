@@ -1,9 +1,12 @@
+
 from flask import Flask 
+
 from . import controllers
 from .db import DataBase
 
 
 def create_app(test_config=None):
+    """Factory method that creates the application"""
     app = Flask(__name__)
     controllers.register_controllers(app)
     DataBase.init()

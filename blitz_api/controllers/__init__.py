@@ -1,5 +1,8 @@
+
 from flask import Flask, Blueprint
+
 from .obj_3d import bp_3d_obj
+
 
 def register_controllers(app: Flask) -> None:
     """Registers all controllers."""
