@@ -11,9 +11,6 @@ from bson.objectid import ObjectId
 from blitz_api.db import DataBase
 
 
-bp_3d_obj = Blueprint("3d_obj", __name__, url_prefix="/3d_obj")
-
-
 class RequestBodySchema(Schema):
     """
     Request Body declaration for `/3d_obj/create` endpoint.
@@ -23,6 +20,8 @@ class RequestBodySchema(Schema):
     extension = fields.String(required=True)
     image_base64 = fields.String(required=True)
 
+
+bp_3d_obj = Blueprint("3d_obj", __name__, url_prefix="/3d_obj")
 
 @bp_3d_obj.route("/create", methods=["POST"])
 def create_3d_obj():
