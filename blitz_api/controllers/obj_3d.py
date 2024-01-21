@@ -25,6 +25,25 @@ bp_3d_obj = Blueprint("3d_obj", __name__, url_prefix="/3d_obj")
 
 @bp_3d_obj.route("/create", methods=["POST"])
 def create_3d_obj():
+    """
+    Create 3D object 
+    Creates a `.obj` file and saves it into database
+    
+    ---
+
+    tags:
+        - 3D object
+    parameters:
+    - in: path
+      name: create
+      required: true
+
+
+    responses:
+        400:
+          description: Invalid request body
+    """
+
     content_type = request.headers.get("Content-Type")
 
     if content_type != "application/json":
@@ -62,6 +81,13 @@ def delete_3d_obj(_id):
 
 @bp_3d_obj.route("/deleteAll", methods=["DELETE"])
 def delete_all_files():
+    """
+    Deletes all files stored in database
+
+    ---
+    tags:
+      - 3D object
+    """
     cursor = DataBase.get_gridFs().find({})
     
     for grid_out in cursor:
