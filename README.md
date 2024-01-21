@@ -7,7 +7,7 @@ Blitz API is a RESTful service for the Blitz application.
 - [Poetry v1.7.1](https://python-poetry.org/)
 
 
-##### API Documentation
+## API Documentation
 Api documentation can be found in the following endpoint of the 
 application once deployed.
 > `/docs`
