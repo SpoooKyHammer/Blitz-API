@@ -4,3 +4,6 @@
 object file in database (mongodb)
 - delete the locally saved image along with its resultant object file 
 
+
+- download link for the object file (parameters: image_id or filename)
+
