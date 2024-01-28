@@ -52,10 +52,11 @@ def download_obj(image_id):
     dumps_path = pathlib.Path().cwd().joinpath("dumps/downloads")
 
     for file in dumps_path.iterdir():
+        if file.name == ".gitkeep": continue
         file.unlink()
 
     file = DataBase.get_gridFs().find_one({"image_id": image_id})
-     
+    
     if file is None:
         abort(404, description=f"FileNotFound\nThe requested file to download does not exist.")
     
@@ -109,6 +110,9 @@ def create_3d_obj():
             image_id:
               type: string
               example: 65acd0610a63b4382f214789
+            download_link:
+              type: string
+              example: http://example.com/api/v1/3d_obj/download/65b64ba0409203f73b74d72 
 
       400:
         description: Invalid request body
@@ -142,7 +146,12 @@ def create_3d_obj():
 
     dumps_path.joinpath(f"{image_name}.{image_extension}").unlink(True)
 
-    return { "msg": "successfully saved file", "_id": str(_id), "image_id": image_id }
+    return { 
+            "msg": "successfully saved file",
+            "_id": str(_id),
+            "image_id": image_id,
+            "download_link": f"{request.root_url}api/v1{bp_3d_obj.url_prefix}/download/{image_id}"
+            }
 
 @bp_3d_obj.route("/delete/<_id>", methods=["DELETE"])
 def delete_3d_obj(_id):
