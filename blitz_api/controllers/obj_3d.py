@@ -8,8 +8,7 @@ from flask import Blueprint, request, abort, send_from_directory
 from marshmallow import Schema, fields, ValidationError
 from bson.objectid import ObjectId
 
-from blitz_api.db import DataBase
-
+from blitz_api.ext import DataBase
 
 class RequestBodySchema(Schema):
     """

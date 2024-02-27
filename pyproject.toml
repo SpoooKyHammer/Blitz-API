@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "blitz-api"
-version = "0.1.0"
+version = "1.0.0"
 description = "A RESTful service for the Blitz application."
 authors = ["Romulus Darwin <darwinromulus@gmail.com>"]
 readme = "README.md"
@@ -12,6 +12,7 @@ pillow = "^10.2.0"
 pymongo = "^4.6.1"
 flasgger = "0.9.7b2"
 flask = "3.0.0"
+celery = "^5.3.6"
 
 
 [build-system]

@@ -3,7 +3,7 @@ from flask import Flask, config
 from flasgger import Swagger
 
 from . import controllers
-from .db import DataBase
+from .ext import DataBase
 from .config.swagger import template, swagger_config 
 
 
