@@ -6,7 +6,7 @@ import gridfs
 class DataBase:
 
     """
-    Provides database connectivity works with MongoDB driver 
+    Provides database connectivity, works with MongoDB driver 
 
     Methods
     -------
