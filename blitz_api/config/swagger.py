@@ -5,17 +5,16 @@ template = {
         "description": "API for creating 3D model in `.obj` format from an image. ",
         """"contact": {
             "responsibleOrganization": "",
-            "responsibleDeveloper": "",
-            "email": "deve@gmail.com",
-            "url": "www.twitter.com/deve",
+            "responsibleDeveloper": "Romulus Darwin",
+            "email": "darwinromulus@gmail.com",
+            "url": "",
         },
-        "termsOfService": "www.twitter.com/deve","""
+        "termsOfService": "","""
         "version": "1.0"
     },
     "basePath": "/api/v1",  # base bash for blueprint registration
     "schemes": [
-        "http",
-        "https"
+        "http"
     ],
 }
 
