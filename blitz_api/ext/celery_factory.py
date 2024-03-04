@@ -3,7 +3,12 @@ from celery import Celery, Task
 from flask import Flask
 
 
-def create_celery(app: Flask) -> Celery: 
+def create_celery(app: Flask) -> Celery:
+    """
+    Creates Celery instance and sets it to `Flask.extensions["celery"]` 
+    which can be later accessed anywhere within the flask app context.
+    """
+
     class FlaskTask(Task):
         def __call__(self, *args: object, **kwargs: object) -> object:
             with app.app_context():
