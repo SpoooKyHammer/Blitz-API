@@ -1,4 +1,4 @@
-"""Entry point of our application"""
+"""Entry point to create celery application."""
 
 from blitz_api import create_app
 
