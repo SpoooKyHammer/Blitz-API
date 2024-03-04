@@ -7,3 +7,4 @@ object file in database (mongodb)
 
 - download link for the object file (parameters: image_id or filename)
 
+- nginx and gunicorn setup into docker
