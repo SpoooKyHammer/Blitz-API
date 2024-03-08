@@ -1,0 +1,11 @@
+----------
+CLI Steps
+----------
+
+Step 1:
+  Generate rect using the below command inside the dir lightweright-human-pose-estimation.pytorch
+  poetry run py .\rect.py
+
+Step 2:
+  Create 3d model using the below command inside the dir pifuhd
+  poetry run py -m apps.simple_test --use_rect
