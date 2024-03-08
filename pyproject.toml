@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "blitz-api"
-version = "1.1.0"
+version = "1.2.0"
 description = "A RESTful service for the Blitz application."
 authors = ["Romulus Darwin <darwinromulus@gmail.com>"]
 readme = "README.md"
@@ -14,6 +14,17 @@ flasgger = "0.9.7b2"
 flask = "3.0.0"
 celery = "^5.3.6"
 redis = "^5.0.1"
+torch = "^2.1.2"
+torchvision = "^0.16.2"
+scikit-image = "^0.22.0"
+tqdm = "^4.66.1"
+opencv-python = "^4.9.0.80"
+trimesh = "^4.0.9"
+pyopengl = "^3.1.7"
+ffmpeg = "^1.4"
+matplotlib = "^3.8.2"
+pycocotools = "^2.0.7"
+numpy = "^1.26.4"
 
 
 [build-system]
