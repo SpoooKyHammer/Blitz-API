@@ -1,14 +1,13 @@
 
-import base64
-import io
 import pathlib
-from PIL import Image
 
 from flask import Blueprint, request, abort, send_from_directory
 from marshmallow import Schema, fields, ValidationError
 from bson.objectid import ObjectId
+from celery.result import AsyncResult
 
 from blitz_api.ext import DataBase
+from blitz_api.ext import tasks
 
 class RequestBodySchema(Schema):
     """
@@ -42,7 +41,7 @@ def download_obj(image_id):
 
     responses:
       200:
-        description: Successfully downloaded the file on local machine.
+        description: Successfully downloaded the file on client machine.
 
       404:
         description: File not found to download. 
@@ -95,23 +94,17 @@ def create_3d_obj():
             type: string
             example: 65acd0610a73b4382f214682
     responses:
-      200:
-        description: Success
+      202:
+        description: Request Accepted
         schema:
           type: object
           properties:
             msg:
               type: string
-              example: successfully saved file 
-            _id:
+              example: You're request is being processed, it'll take some time.
+            task_id:
               type: string
-              example: 65acd0610a73b4382f214682
-            image_id:
-              type: string
-              example: 65acd0610a63b4382f214789
-            download_link:
-              type: string
-              example: http://example.com/api/v1/3d_obj/download/65b64ba0409203f73b74d72 
+              example: a9db4f27-4fcc-4b3b-9de3-74f761d24b5b
 
       400:
         description: Invalid request body
@@ -135,22 +128,56 @@ def create_3d_obj():
     image_name = request.json["image_name"]
     image_id = request.json["image_id"]
 
-    image = Image.open(io.BytesIO(base64.decodebytes(bytes(image_base64_str, "utf-8"))))
-    dumps_path = pathlib.Path().cwd().joinpath("dumps/generate")
-    image.save(f"{dumps_path}/{image_name}.{image_extension}")
+    task = tasks.generate.delay(image_id, image_name, image_extension, image_base64_str)
+    
+    return {
+            "msg": "You're request is being processed, it'll take some time.",
+            "task_id": task.id
+            }, 202
 
-    image = open(f"{dumps_path}/{image_name}.{image_extension}", "rb")
-    _id = DataBase.get_gridFs().put(image, filename=f"{image_name}.{image_extension}", image_id=image_id) 
-    image.close()
+@bp_3d_obj.route("/status/<task_id>", methods=["GET"])
+def get_status(task_id):
+    """
+    The current status of the 3D object. 
+    Check the task's status to ensure that the task initiated when creating the 3D object has been completed. 
+    ---
+    tags:
+        - 3D object
+    parameters:
+    - in: task_id
+      name: task_id
+      required: true
+      description: The task id which was obtained from `/create` endpoint.
+      schema:
+        type: string
+        example: a9db4f27-4fcc-4b3b-9de3-74f761d24b5b
 
-    dumps_path.joinpath(f"{image_name}.{image_extension}").unlink(True)
-
-    return { 
-            "msg": "successfully saved file",
-            "_id": str(_id),
-            "image_id": image_id,
-            "download_link": f"{request.root_url}api/v1{bp_3d_obj.url_prefix}/download/{image_id}"
-            }
+    responses:
+      202:
+        description: Success
+        schema:
+          type: object
+          properties:
+            msg:
+              type: string
+              example: successfully saved file 
+            _id:
+              type: string
+              example: 65acd0610a73b4382f214682
+            image_id:
+              type: string
+              example: 65acd0610a63b4382f214789
+            download_link:
+              type: string
+              example: http://example.com/api/v1/3d_obj/download/65b64ba0409203f73b74d72
+    """
+    
+    task = AsyncResult(task_id)
+    
+    if task.successful():
+        return task.get(), 202
+    else:
+        return {"status": task.status}, 202
 
 @bp_3d_obj.route("/delete/<_id>", methods=["DELETE"])
 def delete_3d_obj(_id):
