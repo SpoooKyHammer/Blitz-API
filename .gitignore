@@ -2,4 +2,4 @@ __pycache__
 
 #models
 /blitz_api/ext/tasks/models/pifuhd/checkpoints/
-/blitz_api/ext/tasks/models/lightweight-human-pose-estimation.pytorch/checkpoint_iter_370000.pth
+/blitz_api/ext/tasks/models/human_pose_estimation/checkpoint_iter_370000.pth
