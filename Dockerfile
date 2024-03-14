@@ -28,5 +28,6 @@ COPY . /blitz_api
 WORKDIR /blitz_api
 
 # Install project dependencies
+RUN poetry config installer.max-workers 10
 RUN poetry install
 

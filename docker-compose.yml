@@ -20,6 +20,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/blitz_api
-    command: poetry run celery -A make_celery worker --loglevel=info
+    command: poetry run celery -A make_celery worker --loglevel=info -P threads
     depends_on:
       - redis
