@@ -128,7 +128,7 @@ def create_3d_obj():
     image_name = request.json["image_name"]
     image_id = request.json["image_id"]
 
-    task = tasks.generate.delay(image_id, image_name, image_extension, image_base64_str)
+    task = tasks.generate_obj.delay(image_id, image_name, image_extension, image_base64_str)
     
     return {
             "msg": "You're request is being processed, it'll take some time.",
@@ -153,14 +153,17 @@ def get_status(task_id):
         example: a9db4f27-4fcc-4b3b-9de3-74f761d24b5b
 
     responses:
-      202:
+      200:
         description: Success
         schema:
           type: object
           properties:
+            status:
+              type: string
+              example: SUCCESS
             msg:
               type: string
-              example: successfully saved file 
+              example: 3d obj is stored in database. 
             _id:
               type: string
               example: 65acd0610a73b4382f214682
@@ -170,12 +173,27 @@ def get_status(task_id):
             download_link:
               type: string
               example: http://example.com/api/v1/3d_obj/download/65b64ba0409203f73b74d72
+      202:
+        description: Processing
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              example: "PENDING"
     """
     
     task = AsyncResult(task_id)
     
     if task.successful():
-        return task.get(), 202
+        result = task.get()
+        return {
+                "status": task.status,
+                "msg": "3d obj is stored in database.",
+                "_id": result["_id"],
+                "image_id": result["image_id"],
+                "download_link": f"{request.root_url}api/v1{bp_3d_obj.url_prefix}/download/{image_id}"
+                }, 200
     else:
         return {"status": task.status}, 202
 
