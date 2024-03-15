@@ -43,7 +43,7 @@ def generate_obj(image_id: str, name: str, extension: str, image_base64: str) ->
     resolution = 512
     make_obj(str(dumps_path), resolution)
 
-    obj_file = open(f"result_{name}_{resolution}.obj", "rb")
+    obj_file = open(f"{dumps_path}/result_{name}_{resolution}.obj", "rb")
     _id = DataBase.get_gridFs().put(obj_file, filename=f"{name}.obj", image_id=image_id) 
     obj_file.close()
 
