@@ -192,7 +192,7 @@ def get_status(task_id):
                 "msg": "3d obj is stored in database.",
                 "_id": result["_id"],
                 "image_id": result["image_id"],
-                "download_link": f"{request.root_url}api/v1{bp_3d_obj.url_prefix}/download/{image_id}"
+                "download_link": f"{request.root_url}api/v1{bp_3d_obj.url_prefix}/download/{result['image_id']}"
                 }, 200
     else:
         return {"status": task.status}, 202
