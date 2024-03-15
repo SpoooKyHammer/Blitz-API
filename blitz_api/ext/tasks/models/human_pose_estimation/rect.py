@@ -8,7 +8,7 @@ from .modules.load_state import load_state
 from .modules.pose import Pose, track_poses
 from . import demo
 
-def get_rect(images: list[str], height_size: int) -> None:
+def get_rect(images: list[str], height_size: int = 512) -> None:
     """
     Parameters
     ----------

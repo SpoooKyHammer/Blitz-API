@@ -182,9 +182,9 @@ def recon(opt, use_rect=False):
     # load checkpoints
     netMR.load_state_dict(state_dict['model_state_dict'])
 
-    os.makedirs(opt.checkpoints_path, exist_ok=True)
-    os.makedirs(opt.results_path, exist_ok=True)
-    os.makedirs('%s/%s/recon' % (opt.results_path, opt.name), exist_ok=True)
+    #os.makedirs(opt.checkpoints_path, exist_ok=True)
+    #os.makedirs(opt.results_path, exist_ok=True)
+    #os.makedirs('%s/%s/recon' % (opt.results_path, opt.name), exist_ok=True)
 
     if start_id < 0:
         start_id = 0
@@ -204,7 +204,8 @@ def recon(opt, use_rect=False):
             if True:
                 test_data = test_dataset[i]
 
-                save_path = '%s/%s/recon/result_%s_%d.obj' % (opt.results_path, opt.name, test_data['name'], opt.resolution)
+                #save_path = '%s/%s/recon/result_%s_%d.obj' % (opt.results_path, opt.name, test_data['name'], opt.resolution)
+                save_path = '%s/result_%s_%d.obj' % (opt.results_path, test_data['name'], opt.resolution)
 
                 print(save_path)
                 gen_mesh(opt.resolution, netMR, cuda, test_data, save_path, components=opt.use_compose)
