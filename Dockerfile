@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 MAINTAINER Romulus Darwin
 
-RUN apt update
+RUN apt update && apt install ffmpeg libsm6 libxext6 -y
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt -y install tzdata
 
 # Python3.11 installation
@@ -21,7 +21,7 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 ENV PATH="${PATH}:/opt/poetry/bin"
 
 # wsgi installation (gunicorn)
-RUN apt install gunicorn -y
+#RUN apt install gunicorn -y
 
 # Copy src files
 COPY . /blitz_api
