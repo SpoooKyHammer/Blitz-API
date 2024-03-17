@@ -12,7 +12,7 @@ def create_app(test_config=None) -> Flask:
     """Factory method that creates the application"""
     
     app = Flask(__name__)
-    app.config["CELERY_CONFIG"] = {"broker_url": Dev.REDIS_URL, "result_backend": Dev.REDIS_URL, "task_ignore_result": True}
+    app.config["CELERY_CONFIG"] = {"broker_url": Prod.REDIS_URL, "result_backend": Prod.REDIS_URL, "task_ignore_result": True}
 
     Swagger(app, config=swagger_config, template=template)
     
