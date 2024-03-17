@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "blitz-api"
-version = "1.2.0"
+version = "2.0.0"
 description = "A RESTful service for the Blitz application."
 authors = ["Romulus Darwin <darwinromulus@gmail.com>"]
 readme = "README.md"
@@ -25,6 +25,7 @@ ffmpeg = "^1.4"
 matplotlib = "^3.8.2"
 pycocotools = "^2.0.7"
 numpy = "^1.26.4"
+gunicorn = "^21.2.0"
 
 
 [build-system]
