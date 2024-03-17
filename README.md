@@ -13,9 +13,9 @@ Blitz API is a RESTful service for the Blitz application.
 sh blitz_api/ext/tasks/models/pifuhd/scripts/download_trained_model.sh
 ```
 
-- To download the **lightweight-human-pose-estimation.pytorch** model run the following commands
+- To download the **human_pose_estimation** model run the following commands
  ```
- cd blitz_api/ext/tasks/models/lightweight-human-pose-estimation.pytorch/
+ cd blitz_api/ext/tasks/models/human_pose_estimation/
  wget https://download.01.org/opencv/openvino_training_extensions/models/human_pose_estimation/checkpoint_iter_370000.pth
  ```
 
