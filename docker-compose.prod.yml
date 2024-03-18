@@ -3,27 +3,17 @@ version: '3'
 services:
   redis:
     image: redis
+    ports:
+      - 6379:6379
 
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: spoookyhammer/blitz-api
-    volumes:
-      - .:/blitz_api 
+    image: anicreate.azurecr.io/blitz_api:1.0 
     command: poetry run gunicorn --bind 0.0.0.0:5000 blitz_api:create_app\(\)
     expose: 
       - 5000
-    #ports:
-    #- 5000:80
 
   celery:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: spoookyhammer/blitz-api
-    volumes:
-      - .:/blitz_api
+    image: anicreate.azurecr.io/blitz_api:1.0
     command: poetry run celery -A blitz_api.run_celery worker --loglevel=info -P threads
     depends_on:
       - redis
@@ -36,3 +26,4 @@ services:
       - 80:80
     depends_on:
       - web
+
