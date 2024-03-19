@@ -29,7 +29,7 @@ class DataBase:
         
         if cls.__mongo_client is None:
             print("[DATABASE] Connecting...")
-            cls.__mongo_client = pymongo.MongoClient("mongodb+srv://root:root@cluster0.kcofxlo.mongodb.net/?retryWrites=true&w=majority")
+            cls.__mongo_client = pymongo.MongoClient("mongodb://darwin:VcLyUC8ligX33EFk4ZgM@20.212.187.44:27017/blitz_auth?authSource=blitz_auth")
             print("[DATABASE] Successfully connected")
 
         if cls.__gfs is None:

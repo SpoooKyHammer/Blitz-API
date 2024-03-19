@@ -8,7 +8,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: spoookyhammer/blitz-api
     volumes:
       - .:/blitz_api 
     command: poetry run gunicorn --bind 0.0.0.0:5000 blitz_api:create_app\(\)
@@ -21,7 +20,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: spoookyhammer/blitz-api
     volumes:
       - .:/blitz_api
     command: poetry run celery -A blitz_api.run_celery worker --loglevel=info -P threads
