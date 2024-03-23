@@ -32,8 +32,8 @@ mkdir blitz_api && cd blitz_api/
 ```
 
 Create the following two files inside this directory (Note: that the file names need to match the specified)
-- `docker-compose.yml` copy the contents of [docker-compose.prod.yml](https://github.com/SpoooKyHammer/Blitz-API/blob/7bed9f888c8ee8b099826846390b69bec7c369bc/docker-compose.prod.yml) into this file.
-- `nginx.conf` copy the contents of [nginx.conf](https://github.com/SpoooKyHammer/Blitz-API/blob/7bed9f888c8ee8b099826846390b69bec7c369bc/nginx.conf) into this file.
+- `docker-compose.yml` copy the contents of [docker-compose.prod.yml](https://github.com/SpoooKyHammer/Blitz-API/blob/main/docker-compose.prod.yml) into this file.
+- `nginx.conf` copy the contents of [nginx.conf](https://github.com/SpoooKyHammer/Blitz-API/blob/main/nginx.conf) into this file.
 
 Docker login to the remote registry where our image is currently located
 ```
