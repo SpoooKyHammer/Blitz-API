@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "blitz-api"
-version = "2.0.1"
+version = "2.0.2"
 description = "A RESTful service for the Blitz application."
 authors = ["Romulus Darwin <darwinromulus@gmail.com>"]
 readme = "README.md"

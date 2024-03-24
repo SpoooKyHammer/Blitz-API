@@ -34,7 +34,7 @@ class DataBase:
 
         if cls.__gfs is None:
             print("[GFS] Initializing...")
-            cls.__gfs = gridfs.GridFS(cls.__mongo_client.get_database("blitz"))
+            cls.__gfs = gridfs.GridFS(cls.__mongo_client.get_database("blitz_auth"))
             print("[GFS] Successfully initialized")
 
     @classmethod
