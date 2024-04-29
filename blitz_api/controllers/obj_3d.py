@@ -1,7 +1,7 @@
 
 import pathlib
 
-from flask import Blueprint, request, abort, send_from_directory
+from flask import Blueprint, Response, request, abort, send_from_directory
 from marshmallow import Schema, fields, ValidationError
 from bson.objectid import ObjectId
 from celery.result import AsyncResult
@@ -21,6 +21,11 @@ class RequestBodySchema(Schema):
 
 
 bp_3d_obj = Blueprint("3d_obj", __name__, url_prefix="/3d_obj")
+
+@bp_3d_obj.after_request
+def after_request(response: Response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
 
 @bp_3d_obj.route("/download/<image_id>", methods=["GET"])
 def download_obj(image_id):
