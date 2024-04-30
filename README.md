@@ -42,10 +42,6 @@ cd blitz_api/ext/tasks/models/pifuhd/ && sh scripts/download_trained_model.sh
  cd blitz_api/ext/tasks/models/human_pose_estimation/ && wget https://download.01.org/opencv/openvino_training_extensions/models/human_pose_estimation/checkpoint_iter_370000.pth
  ```
 
-Create the following two files inside this directory (Note: that the file names need to match the specified)
-- `docker-compose.yml` copy the contents of [docker-compose.prod.yml](https://github.com/SpoooKyHammer/Blitz-API/blob/main/docker-compose.prod.yml) into this file.
-- `nginx.conf` copy the contents of [nginx.conf](https://github.com/SpoooKyHammer/Blitz-API/blob/main/nginx.conf) into this file.
-
 Docker login to the remote registry where our image is currently located
 ```
 sudo docker login anicreate.azurecr.io
@@ -53,7 +49,7 @@ sudo docker login anicreate.azurecr.io
 
 Pull the image and run the containers
 ```
-sudo docker-compose up -d
+sudo docker-compose -f docker-compose.prod.yml up -d
 ```
 
 ## Run Application by locally building the image
