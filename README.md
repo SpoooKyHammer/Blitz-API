@@ -26,10 +26,21 @@ Install docker and docker-compose, ignore this step if already installed.
 sudo apt install docker docker-compose -y
 ```
 
-Create a directory for this project.
+Clone the github repository.
 ```
-mkdir blitz_api && cd blitz_api/
+git clone https://github.com/SpoooKyHammer/Blitz-API.git
 ```
+
+After cloning, cd into the directory and the first thing you should do is install the pre-trained model that our project depends on. (Note these commands are to be executed from the root directory of the project).
+- To download the **PIFuHD** model run the following command. <br>
+```
+cd blitz_api/ext/tasks/models/pifuhd/ && sh scripts/download_trained_model.sh
+```
+
+- To download the **human_pose_estimation** model run the following command.
+ ```
+ cd blitz_api/ext/tasks/models/human_pose_estimation/ && wget https://download.01.org/opencv/openvino_training_extensions/models/human_pose_estimation/checkpoint_iter_370000.pth
+ ```
 
 Create the following two files inside this directory (Note: that the file names need to match the specified)
 - `docker-compose.yml` copy the contents of [docker-compose.prod.yml](https://github.com/SpoooKyHammer/Blitz-API/blob/main/docker-compose.prod.yml) into this file.
