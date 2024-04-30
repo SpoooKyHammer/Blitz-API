@@ -24,7 +24,8 @@ bp_3d_obj = Blueprint("3d_obj", __name__, url_prefix="/3d_obj")
 
 @bp_3d_obj.after_request
 def after_request(response: Response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "*"
     return response
 
 @bp_3d_obj.route("/download/<image_id>", methods=["GET"])

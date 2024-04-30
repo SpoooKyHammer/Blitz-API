@@ -8,6 +8,8 @@ services:
 
   web:
     image: anicreate.azurecr.io/blitz_api:1.0 
+    volumes:
+      - .:/blitz_api 
     command: poetry run gunicorn --bind 0.0.0.0:5000 blitz_api:create_app\(\)
     restart: always
     expose: 
@@ -15,6 +17,8 @@ services:
 
   celery:
     image: anicreate.azurecr.io/blitz_api:1.0
+    volumes:
+      - .:/blitz_api 
     command: poetry run celery -A blitz_api.run_celery worker --loglevel=info -P threads
     restart: always
     depends_on:
